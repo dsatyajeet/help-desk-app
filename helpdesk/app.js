@@ -4,11 +4,17 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var passport = require('passport');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var oauth2 = require('./routes/oauth');
 
 var app = express();
+
+
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/otest');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -23,8 +29,17 @@ app.use(cookieParser());
 app.use(require('node-compass')({mode: 'expanded'}));
 app.use(express.static(path.join(__dirname, 'public')));
 
+///
+app.use(passport.initialize());
+app.use(passport.session());
+///
+
+// Passport configuration
+require('./oauth/stratigies');
+
 app.use('/', routes);
 app.use('/users', users);
+app.use('/api', oauth2);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
