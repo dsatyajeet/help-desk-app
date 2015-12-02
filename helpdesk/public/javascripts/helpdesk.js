@@ -6,7 +6,6 @@ function toggle(id1,id2){
     $(id2).hide();
 }
 
-$( document ).ready(function() {
-    $.notify("Do not press this button", "info",{ position:"",  showAnimation: 'slideDown' });
-
-});
+function addNotification(message,type,options){
+    $.notify(message, type,options);
+}
