@@ -13,7 +13,7 @@ helpDeskApp.controller('ticketController', ['$scope', '$http', 'ticketService', 
     $scope.createTicket = function (ticketEntry) {
         ticketService.create(ticketEntry)
             .success(function (data) {
-                addNotification("Ticket Added successfully : ticketId is " + data._id,"info",{});
+                addNotification("Ticket Added successfully : ticketId is " + data._id,"success");
                 $scope.ticketEntry={};
             });
     };
