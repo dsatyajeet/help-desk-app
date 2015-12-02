@@ -42,7 +42,7 @@ require('./oauth/stratigies');
 app.use('/', routes);
 app.use('/users', users);
 app.use('/api', oauth2);
-app.use('/api/ticket',ticket);
+app.use('/ticket',ticket);
 
 
 

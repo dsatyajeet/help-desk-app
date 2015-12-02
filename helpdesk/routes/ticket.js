@@ -22,9 +22,13 @@ router.route('/add').post(oauth2.isLoggedIn, function(req, res, next) {
     });
 });
 
+/* GET home page. */
+router.get('/', function(req, res, next) {
+    res.render('ticket', { title: 'Express' });
+});
 
 /* GET Ticket  listing. */
-router.route('/get/:ticketId').get(oauth2.isLoggedIn, function(req, res, next) {
+router.route('/api/get/:ticketId').get(oauth2.isLoggedIn, function(req, res, next) {
 
     Ticket.find({ "_id": req.params.ticketId }, function(err, ticket) {
         if (err) res.send(err);
@@ -34,7 +38,7 @@ router.route('/get/:ticketId').get(oauth2.isLoggedIn, function(req, res, next) {
 
 
 /* GETAll Ticket  listing. */
-router.route('/getAll').get(oauth2.isLoggedIn, function(req, res, next) {
+router.route('/api/getAll').get(oauth2.isLoggedIn, function(req, res, next) {
 
     Ticket.find({}, function(err, tickets) {
         if (err) res.send(err);
@@ -43,7 +47,7 @@ router.route('/getAll').get(oauth2.isLoggedIn, function(req, res, next) {
 });
 
 /* PUT Ticket Update listing. */
-router.route('/update').put(oauth2.isLoggedIn, function(req, res, next) {
+router.route('/api/update').put(oauth2.isLoggedIn, function(req, res, next) {
 
     Ticket.findOneAndUpdate({_id: req.body.ticketId}, { subject: req.body.subject,content: req.body.content,updateDate:new Date() }, function(err, ticket) {
         if (err) res.send(err);
@@ -58,7 +62,7 @@ router.route('/update').put(oauth2.isLoggedIn, function(req, res, next) {
 });
 
 /* delete Ticket  listing. */
-router.route('/delete/:ticketId').delete(oauth2.isAuthenticated, function(req, res, next) {
+router.route('/api/delete/:ticketId').delete(oauth2.isAuthenticated, function(req, res, next) {
 
     Ticket.findOneAndRemove({ _id: req.params.ticketId }, function(err) {
         if (err)  res.send(err);
