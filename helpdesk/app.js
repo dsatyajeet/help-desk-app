@@ -9,12 +9,14 @@ var passport = require('passport');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var oauth2 = require('./routes/oauth');
+var ticket = require('./routes/ticket');
 
 var app = express();
 
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/otest');
+mongoose.connect('mongodb://localhost:27017/helpdesk');
+var port = 8080; 				// set the port
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -40,6 +42,14 @@ require('./oauth/stratigies');
 app.use('/', routes);
 app.use('/users', users);
 app.use('/api', oauth2);
+app.use('/ticket',ticket);
+
+
+
+// listen (start app with node server.js) ======================================
+app.listen(port);
+console.log("App listening on port " + port);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
