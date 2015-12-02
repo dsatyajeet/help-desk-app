@@ -5,10 +5,10 @@
 var Ticket = require('../models/ticket');
 var express = require('express');
 var router = express.Router();
+var oauth2 = require('../oauth/oauth2');
 
 /* POST Ticket Add listing. */
-router.post('/add', function(req, res, next) {
-
+router.route('/add').post(oauth2.isLoggedIn, function(req, res, next) {
     Ticket.create({
         subject: req.body.subject,
         content: req.body.content,
@@ -24,7 +24,7 @@ router.post('/add', function(req, res, next) {
 
 
 /* GET Ticket  listing. */
-router.get('/get/:ticketId', function(req, res, next) {
+router.route('/get/:ticketId').get(oauth2.isLoggedIn, function(req, res, next) {
 
     Ticket.find({ "_id": req.params.ticketId }, function(err, ticket) {
         if (err) res.send(err);
@@ -34,7 +34,7 @@ router.get('/get/:ticketId', function(req, res, next) {
 
 
 /* GETAll Ticket  listing. */
-router.get('/getAll', function(req, res, next) {
+router.route('/getAll').get(oauth2.isLoggedIn, function(req, res, next) {
 
     Ticket.find({}, function(err, tickets) {
         if (err) res.send(err);
@@ -43,7 +43,7 @@ router.get('/getAll', function(req, res, next) {
 });
 
 /* PUT Ticket Update listing. */
-router.put('/update', function(req, res, next) {
+router.route('/update').put(oauth2.isLoggedIn, function(req, res, next) {
 
     Ticket.findOneAndUpdate({_id: req.body.ticketId}, { subject: req.body.subject,content: req.body.content,updateDate:new Date() }, function(err, ticket) {
         if (err) res.send(err);
@@ -58,7 +58,7 @@ router.put('/update', function(req, res, next) {
 });
 
 /* delete Ticket  listing. */
-router.delete('/delete/:ticketId', function(req, res, next) {
+router.route('/delete/:ticketId').delete(oauth2.isAuthenticated, function(req, res, next) {
 
     Ticket.findOneAndRemove({ _id: req.params.ticketId }, function(err) {
         if (err)  res.send(err);

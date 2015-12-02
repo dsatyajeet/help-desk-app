@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/otest2');
+mongoose.connect('mongodb://localhost:27017/helpdesk');
 
 var Client = require('../models/oauth/client');
 var User = require('../models/oauth/user');
@@ -79,8 +79,8 @@ function addUser(_username) {
     });
     console.log('after user save');
 }
-//addClient();
-//getClient('Satyajeet');
+addClient();
+getClient('sample');
 var uname = 'Veer';
 console.log('adding user');
 addUser(uname);
