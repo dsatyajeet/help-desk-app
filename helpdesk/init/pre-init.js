@@ -69,7 +69,11 @@ function getUser(_username, _password) {
 function addUser(_username) {
     var user = new User({
         username: _username,
-        password: 'password'
+        password: 'password',
+        firstname:"firstname",
+        lastname:"lastname",
+        email:"email",
+        mobile:"mobile"
     });
     console.log('b4 user save');
     user.save(function (err) {
@@ -85,5 +89,5 @@ var uname = 'Veer';
 console.log('adding user');
 addUser(uname);
 console.log('interval');
-getUser(uname, 'password')
+getUser(uname, 'password');
 console.log('completed');

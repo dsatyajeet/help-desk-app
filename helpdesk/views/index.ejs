@@ -36,12 +36,19 @@
     <!-- <link href="css/css-app-red.css" rel="stylesheet" media="screen"> -->
     <!-- <link href="css/css-app-orange.css" rel="stylesheet" media="screen"> -->
     <!-- <link href="css/css-app-yellow.css" rel="stylesheet" media="screen"> -->
+
+    <script src="/javascripts/jquery.noty.packaged.js"></script>
     <script src="/javascripts/helpdesk.js"></script>
     <script src="/javascripts/login.js"></script>
+
     <script src="/javascripts/angular.min.js"></script>
     <script src="/javascripts/angular-resource.min.js"></script>
     <script src="/javascripts/angular-route.min.js"></script>
     <script src="/javascripts/angular-cookies.min.js"></script>
+    <script src="/javascripts/angular-ngStorage.js"></script>
+
+    <script src="/javascripts/controller/angular-controller.js"></script>
+    <script src="/javascripts/service/angular-services.js"></script>
 
 
     <!-- Google Fonts -->
@@ -49,7 +56,7 @@
           href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic"/>
 </head>
 
-<body data-spy="scroll" data-target="#navbar-scroll" style="color: #B9611F">
+<body data-spy="scroll" data-target="#navbar-scroll" style="color: #B9611F" ng-app="helpDeskApp">
 
 <div id="home" class="container-fluid">
     <div class="fullscreen landing parallax" style="background-image:url('images/backgd.jpg');" data-img-width="2300"
@@ -63,7 +70,7 @@
                     </div>
                 </div>
                 <div class="container">
-                    <div class="row">
+                    <div class="row" ng-controller="userController">
 
                         <div class="col-md-7">
                             <!-- /.main title -->
@@ -89,61 +96,61 @@
                                    class="btn-default">Register</a>
                             </div>
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-md-5" >
                             <div id="registration" class="form-group hide-tab">
                                 <div class="col-sm-offset-3 col-sm-7">
-                                    <label for="firstName">First name</label>
-                                    <input type="text" class="form-control input-sm" name="firstName" id="firstName"
+                                    <label for="firstname">First name</label>
+                                    <input type="text" ng-model="userEntry.firstname" class="form-control input-sm" name="firstname" id="firstname"
                                            placeholder="First Name" required>
                                 </div>
                                 <div class="col-sm-offset-3 col-sm-7">
-                                    <label for="lastName">Last name</label>
-                                    <input type="text" class="form-control input-sm" name="lastName" id="lastName"
+                                    <label for="lastname">Last name</label>
+                                    <input type="text" ng-model="userEntry.lastname" class="form-control input-sm" name="lastname" id="lastname"
                                            placeholder="Last Name" required>
                                 </div>
                                 <div class="col-sm-offset-3 col-sm-7">
                                     <label for="email">Email ID</label>
-                                    <input type="email" class="form-control input-sm" name="email" id="email"
+                                    <input type="text" ng-model="userEntry.email" class="form-control input-sm" name="email" id="email"
                                            placeholder="Email ID" required>
                                 </div>
                                 <div class="col-sm-offset-3 col-sm-7">
                                     <label for="mobile">Mobile Number</label>
-                                    <input type="text" class="form-control input-sm" name="mobile" id="mobile"
+                                    <input type="text" ng-model="userEntry.mobile" class="form-control input-sm" name="mobile" id="mobile"
                                            placeholder="Mobile Number" required>
                                 </div>
                                 <div class="col-sm-offset-3 col-sm-7">
                                     <label for="userName">User Name</label>
-                                    <input type="text" class="form-control input-sm" name="username" id="username"
+                                    <input type="text" ng-model="userEntry.username" class="form-control input-sm" name="username" id="username"
                                            placeholder="User Name" required>
                                 </div>
                                 <div class="col-sm-offset-3 col-sm-7">
                                     <label for="password">Password</label>
-                                    <input type="password" class="form-control input-sm" name="password" id="password"
+                                    <input type="password" ng-model="userEntry.password" class="form-control input-sm" name="password" id="password"
                                            placeholder="Password" required>
                                 </div>
                                 <div class="col-sm-offset-3 col-sm-7">
                                     <div class="col-sm-offset-3 col-sm-7">
-                                        <input type="submit" class="btn-default" value="Register"/>
+                                        <input type="submit" ng-click="register(userEntry);" class="btn-default" value="Register"/>
                                     </div>
                                 </div>
                             </div>
                             <div id="login" class="form-group hide-tab">
                                 <div class="col-sm-offset-3 col-sm-7">
                                     <label for="userName">User Name</label>
-                                    <input type="text" class="form-control input-sm" name="username" id="username"
+                                    <input type="text" class="form-control input-sm" ng-model="loginEntry.username" name="username" id="username"
                                            placeholder="User Name" required>
                                 </div>
                                 <div class="col-sm-offset-3 col-sm-7">
                                     <label for="password">Password</label>
-                                    <input type="password" class="form-control input-sm" name="password"
+                                    <input type="password" ng-model="loginEntry.password" class="form-control input-sm" name="password"
                                            id="password"
                                            placeholder="Password" required>
                                 </div>
 
                                 <div class="col-sm-offset-3 col-sm-7">
                                     <div class="col-sm-offset-3 col-sm-7">
-                                        <input type="submit" class="btn-default" value="Login"
-                                               onclick="javascript:login();"/>
+                                        <input type="hidden" name="grant_type" ng-model="loginEntry.grant_type" ng-value="password"/>
+                                        <input type="submit" ng-click="login(loginEntry);" class="btn-default" value="Login"/>
                                     </div>
                                 </div>
                             </div>

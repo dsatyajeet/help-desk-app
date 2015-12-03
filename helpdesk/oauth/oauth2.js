@@ -86,7 +86,7 @@ server.exchange(oauth2orize.exchange.password(function (_client, _username, _pas
             // Password did not match
             if (!isMatch) {
                 console.error('Password did not match');
-                //    return done(null, false);
+                return done(null, false);
             }
             // Success
             console.log('User found: '+user);
