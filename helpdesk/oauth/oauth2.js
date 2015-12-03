@@ -90,37 +90,38 @@ server.exchange(oauth2orize.exchange.password(function (_client, _username, _pas
             }
             // Success
             console.log('User found: '+user);
+
+            AccessToken.findOne({userId:user._id},function(err,existingToken){
+                if(err){
+                    return done(err);
+                }
+                var accessToken=null;
+                var refreshToken = "xx";
+                if(!existingToken){
+                    console.log('creating new token');
+                    var token = utils.uid(50);
+                    var accessToken =new AccessToken();
+                    accessToken.value=token;
+                    accessToken.userId=user.id;
+                    accessToken.save(function (err) {
+                        if (err) {
+                            return done(err);
+                        }
+
+                        //I mimic openid connect's offline scope to determine if we send
+                        //a refresh token or not
+
+                        return done(null, token, refreshToken, {expires_in: 3600});
+                    });
+                }
+                else{
+                    console.log('already exist');
+                    return done(null, existingToken.value, refreshToken, {expires_in: 3601});
+                }
+            });
         });
 
 
-        AccessToken.findOne({userId:user._id},function(err,existingToken){
-            if(err){
-                return done(err);
-            }
-            var accessToken=null;
-            var refreshToken = "xx";
-            if(!existingToken){
-                console.log('creating new token');
-                var token = utils.uid(50);
-                var accessToken =new AccessToken();
-                accessToken.value=token;
-                accessToken.userId=user.id;
-                accessToken.save(function (err) {
-                    if (err) {
-                        return done(err);
-                    }
-
-                    //I mimic openid connect's offline scope to determine if we send
-                    //a refresh token or not
-
-                    return done(null, token, refreshToken, {expires_in: 3600});
-                });
-            }
-            else{
-                console.log('already exist');
-                return done(null, existingToken.value, refreshToken, {expires_in: 3601});
-            }
-        });
 
 
     });

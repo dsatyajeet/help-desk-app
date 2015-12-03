@@ -39,6 +39,7 @@ helpDeskApp.controller('userController', ['$sessionStorage','$scope', '$http','$
             $window.location.href = '/ticket';
         }).error(function(){
             $sessionStorage.AuthHeader='';
+            addNotification("User Entered Credential are incorrect!","error");
             console.log("logged in not successfully");
         });
     };
