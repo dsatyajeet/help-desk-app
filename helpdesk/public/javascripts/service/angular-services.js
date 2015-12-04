@@ -15,7 +15,10 @@ services.factory('ticketService', ['$http', function ($http) {
         },
         delete: function (id) {
             return $http.delete('/ticket/delete/' + id);
-        }
+        },
+        getAll: function () {
+            return $http.get('/ticket/getAll');
+        },
     }
 }]);
 
@@ -32,6 +35,9 @@ services.factory('userService', ['$http', function ($http) {
             return $http.post('/users/add', userData, config);
         },
         login: function (userData) {
+            return $http.post('/users/oauth/token', userData, config);
+        },
+        getProfile: function (userName) {
             return $http.post('/users/oauth/token', userData, config);
         }
 

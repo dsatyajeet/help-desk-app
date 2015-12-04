@@ -9,6 +9,7 @@ var oauth2 = require('../oauth/oauth2');
 
 /* POST Ticket Add listing. */
 router.route('/add').post(oauth2.isLoggedIn, function(req, res, next) {
+    oauth2.isLoggedIn
     Ticket.create({
         subject: req.body.subject,
         content: req.body.content,
@@ -26,6 +27,12 @@ router.route('/add').post(oauth2.isLoggedIn, function(req, res, next) {
 router.get('/', function(req, res, next) {
     res.render('ticket', { title: 'Express' });
 });
+
+/* GET home page. */
+router.get('/tickets', function(req, res, next) {
+    res.render('tickets', { title: 'Express' });
+});
+
 
 /* GET Ticket  listing. */
 router.route('/get/:ticketId').get(oauth2.isLoggedIn, function(req, res, next) {
@@ -62,7 +69,7 @@ router.route('/update').put(oauth2.isLoggedIn, function(req, res, next) {
 });
 
 /* delete Ticket  listing. */
-router.route('/api/delete/:ticketId').delete(oauth2.isAuthenticated, function(req, res, next) {
+router.route('/delete/:ticketId').delete(oauth2.isLoggedIn, function(req, res, next) {
 
     Ticket.findOneAndRemove({ _id: req.params.ticketId }, function(err) {
         if (err)  res.send(err);
