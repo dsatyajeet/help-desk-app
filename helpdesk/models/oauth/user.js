@@ -1,6 +1,8 @@
 // Load required packages
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
+var Schema = mongoose.Schema,
+    ObjectId = Schema.ObjectId;
 
 // Define our user schema
 var UserSchema = new mongoose.Schema({
@@ -30,8 +32,10 @@ var UserSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    roles:[{type:ObjectId,ref:'Role'}]
 });
+
 
 // Execute before each user.save() call
 UserSchema.pre('save', function(callback) {
@@ -61,3 +65,4 @@ UserSchema.methods.verifyPassword = function(password, cb) {
 
 // Export the Mongoose model
 module.exports = mongoose.model('User', UserSchema);
+

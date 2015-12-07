@@ -9,6 +9,7 @@ var passport = require('passport');
 var utils = require('../util');
 var User = require('../models/oauth/user');
 var AccessToken = require('../models/oauth/accesstoken');
+var UserService=require ('../service/userService');
 
 // create OAuth 2.0 server
 var server = oauth2orize.createServer();
@@ -193,11 +194,36 @@ exports.token2 = [
 exports.info = [
     function (req, res) {
         console.log('test API: '+req.user.id);
+       // var roleArray=['Admin','Customer'];
+       UserService.validatUserByRoles(req.header('Authorization').split(' ')[1],['Customer'],generalCallback)
         // req.authInfo is set using the `info` argument supplied by
         // `BearerStrategy`.  It is typically used to indicate scope of the token,
         // and used in access control checks.  For illustrative purposes, this
         // example simply returns the scope in the response.
-        res.json({user_id: req.user.id, name: req.user.username, scope: req.authInfo.scope});
+        //res.json({user_id: req.user.id, name: req.user.username, scope: req.authInfo.scope});
+
+
+
+        function generalCallback(err, obj, message, errorMessage) {
+            console.log(' validate call :'+err);
+            if (err) {
+                renderError(err,req,res);
+            }
+            else {
+                if (message) {
+                    res.send(message);
+                }
+                else {
+                    if (obj)
+                        res.json(obj);
+                    else {
+                      //  res.send('success');
+                        res.json({user_id: req.user.id, name: req.user.username, scope: req.authInfo.scope});
+                    }
+                }
+            }
+        }
+
     }
 ];
 
@@ -226,4 +252,11 @@ server.deserializeClient(function (id, done) {
 });
 
 exports.isAuthenticated = passport.authenticate(['basic', 'oauth2-client-password'], { session : false });
+
 exports.isLoggedIn = passport.authenticate(['bearer'], { session : false });
+
+function renderError(err, req, res, next) {
+    console.log('custom error..oauth...'+err);
+    res.status(err.status || 500);
+    res.json({errorMessage: err.message});
+}
