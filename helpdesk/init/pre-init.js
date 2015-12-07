@@ -3,6 +3,7 @@ mongoose.connect('mongodb://localhost:27017/helpdesk');
 
 var Client = require('../models/oauth/client');
 var User = require('../models/oauth/user');
+var Role = require('../models/oauth/role');
 
 
 function addClient() {
@@ -66,23 +67,92 @@ function getUser(_username, _password) {
     });
 };
 
-function addUser(_username) {
-    var user = new User({
+function findRoles(roles){
+    Role.find()
+        .where('name')
+        .in(roles)
+        .exec(function (err, records) {
+            console.log(' record found '+records);
+            console.log('total records: '+records.length);
+        });
+}
+
+function addUserWithRole(username,rolesArray){
+    Role.find()
+        .where('name')
+        .in(rolesArray)
+        .exec(function (err, roles) {
+            if(err){
+                console.error('error in finding user.');
+            }
+            else{
+                addUser(username,roles);
+                console.log(' record found '+roles);
+                console.log('total records: '+roles.length);
+            }
+
+        });
+}
+
+function addUser(_username,roles) {
+    var user=null;
+    if(!roles){
+    user = new User({
         username: _username,
         password: 'password',
         firstname:"firstname",
         lastname:"lastname",
         email:"email",
         mobile:"mobile"
-    });
+    });}
+    else{
+        user = new User({
+            username: _username,
+            password: 'password',
+            firstname:'firstname',
+            lastname:'lastname',
+            email:'email',
+            mobile:'mobile',
+            roles:roles
+        });
+    }
     console.log('b4 user save');
     user.save(function (err) {
         if (err)
             console.error('error in adding user: ' + err);
-        console.log('user added:' + user);
+        else
+            console.log('user added:' + user);
     });
-    console.log('after user save');
+    console.log('end');
 }
+
+function addRole(role) {
+    var role = new Role({
+        name: role,
+        description: 'default decription'
+    });
+    console.log('b4 role save');
+    role.save(function (err) {
+        if (err)
+            console.error('error in adding role: ' + err);
+        else
+            console.log('role added:' + role);
+    });
+    console.log('end');
+}
+
+function populateRole(uname){
+    console.log(uname);
+    User.findOne({username:uname}).populate('roles').exec(function(err, _roles){
+        if(err){
+            console.log('error in populate');
+        }
+        else{
+            console.log('Role populated: '+_roles.roles[1]);
+        }
+    });
+}
+/*
 addClient();
 getClient('sample');
 var uname = 'Veer';
@@ -91,3 +161,14 @@ addUser(uname);
 console.log('interval');
 getUser(uname, 'password');
 console.log('completed');
+*/
+
+var rolearray=['Admin','Customer'];
+addUserWithRole('Dinanath',rolearray);
+//addRole('Admin');
+//var rolearray=['Admin','Customer'];
+//findRoles(rolearray);
+//addUserWithRole('Mulayam',rolearray);
+//populateRole('Sonia');
+//console.log(' next to populate..');
+//populateRole('Mulayam');
