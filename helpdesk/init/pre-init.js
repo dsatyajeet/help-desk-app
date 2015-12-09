@@ -163,9 +163,9 @@ getUser(uname, 'password');
 console.log('completed');
 */
 
-var rolearray=['Admin','Customer'];
-addUserWithRole('Dinanath',rolearray);
-//addRole('Admin');
+var rolearray=['Admin'];
+addUserWithRole('admin',rolearray);
+//addRole('Support');
 //var rolearray=['Admin','Customer'];
 //findRoles(rolearray);
 //addUserWithRole('Mulayam',rolearray);
