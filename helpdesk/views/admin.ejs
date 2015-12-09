@@ -60,6 +60,7 @@
 
 
 <div id="wrapper" class="container-fluid">
+    <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -83,52 +84,75 @@
         </ul>
         <!-- /.navbar-collapse -->
     </nav>
-    <div class="col-md-7 col-md-offset-3 container" style="margin-top: 50px;">
-        <div id="registration" class="form-group">
-            <div class="col-sm-offset-3 col-sm-7">
-                <label for="firstname">First name</label>
-                <input type="text" ng-model="userEntry.firstname" class="form-control input-sm" name="firstname"
-                       id="firstname"
-                       placeholder="First Name" required>
-            </div>
-            <div class="col-sm-offset-3 col-sm-7">
-                <label for="lastname">Last name</label>
-                <input type="text" ng-model="userEntry.lastname" class="form-control input-sm" name="lastname"
-                       id="lastname"
-                       placeholder="Last Name" required>
-            </div>
-            <div class="col-sm-offset-3 col-sm-7">
-                <label for="email">Email ID</label>
-                <input type="text" ng-model="userEntry.email" class="form-control input-sm" name="email" id="email"
-                       placeholder="Email ID" required>
-            </div>
-            <div class="col-sm-offset-3 col-sm-7">
-                <label for="mobile">Mobile Number</label>
-                <input type="text" ng-model="userEntry.mobile" class="form-control input-sm" name="mobile" id="mobile"
-                       placeholder="Mobile Number" required>
-            </div>
-            <div class="col-sm-offset-3 col-sm-7">
-                <label for="userName">User Name</label>
-                <input type="text" ng-model="userEntry.username" class="form-control input-sm" name="username"
-                       id="username"
-                       placeholder="User Name" required>
-            </div>
-            <div class="col-sm-offset-3 col-sm-7">
-                <label for="password">Password</label>
-                <input type="password" ng-model="userEntry.password" class="form-control input-sm" name="password"
-                       id="password" required>
-            </div>
-            <div class="col-md-7">
-                <div class="col-sm-offset-3 col-sm-7">
-                    <input type="submit" ng-click="register(userEntry);" class="btn-default" value="Update"/>
-                    <input type="submit" ng-click="register(userEntry);" class="btn-default" value="Cancel"/>
+
+    <div id="page-wrapper">
+
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="container-fluid">
+                <div>
+                    <div class="container">
+                        <div class="row">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <h1 class="page-header">
+                        Help Desk<br>
+                        <small>Statistics Overview</small>
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li class="active">
+                            <i class="fa fa-dashboard"></i> Dashboard
+                        </li>
+                    </ol>
                 </div>
             </div>
+            <!-- /.row -->
 
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><i class="fa fa-ticket fa-fw"></i> Ticket Panel</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Ticket Id #</th>
+                                    <th>Ticket Subject</th>
+                                    <th>Ticket Content</th>
+                                    <th>Ticket Create Date</th>
+                                    <th>Ticket Update Date</th>
+                                    <th>Ticket Status</th>
+                                    <th>Update Status</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>3326</td>
+                                    <td>Software Issue</td>
+                                    <td>application crash accidentally.</td>
+                                    <td>23/12/2031</td>
+                                    <td>23/12/2031</td>
+                                    <td>completed/incomplete</td>
+                                    <% if(!1){ %>
+                                    <td><input type="button" name="$completed" value="complete" onclick=""></td>
+                                    <% }else{ %>
+                                    <td><input type="button" name="$incompleted" value="In-complete" onclick=""></td>
+                                    <% } %>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
 <footer id="footer">
     <div class="container">
         <div class="col-sm-4 col-sm-offset-4">
@@ -150,5 +174,7 @@
         </div>
     </div>
 </footer>
+
 </body>
+
 </html>
