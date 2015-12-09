@@ -128,12 +128,9 @@ passport.use(new BearerStrategy(
 // the client by ID from the database.
 
 passport.serializeUser(function (user, done) {
-    console.log("authjs serializeUser")
     done(null, user.id);
 });
 
 passport.deserializeUser(function (id, done) {
-    console.log("authjs deserializeUser");
     done(err, user);
-
 });

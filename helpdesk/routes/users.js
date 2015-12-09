@@ -13,8 +13,23 @@ var oauth2 = require('../oauth/oauth2');
     res.send('respond with a resource');
 });*/
 
-router.get('/:username', function (req, res, next) {
+router.get('/user/:username', function (req, res, next) {
     userService.get(req.param('username'),utilService.generalSyncCallback,utilService.getContext(req, res));
+});
+
+router.get('/myProfile', function (req, res, next) {
+    var context = utilService.getContext(req, res, null,null);
+    var actionArray=[function setUser(syncCallback){
+        context.callback=syncCallback;
+        userService.getUserByToken(req.header('Authorization').split(' ')[1],utilService.setUserSyncCallback,context);
+    },function profile(syncCallback){
+        res.json(context.thisUser);
+        syncCallback(null);
+    }];
+
+async.series(actionArray);
+
+
 });
 
 

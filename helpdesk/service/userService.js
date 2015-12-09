@@ -22,7 +22,30 @@ exports.validatUserByRoles = function (token, roleArray, callback, context) {
         });
 
     });
-}
+};
+
+
+
+exports.getUserByToken = function (token, callback, context) {
+
+    console.log('get user by token:cc ' + token);
+    AccessToken.findOne({value: token}, function (err, accessToken) {
+        if (err) {
+            return callback(context, err);
+        }
+        if (!(accessToken && accessToken.userId)) {
+            return callback(context, new Error('Access token not found.'));
+        }
+        User.findById(accessToken.userId).populate('roles').exec(err, function (err, loadedUser) {
+            if (!loadedUser) {
+                return callback(context, new Error('User not found.'));
+            }
+            console.log('user found and context is: '+context);
+            return callback(context, null, loadedUser);
+        });
+
+    });
+};
 
 exports.add = function (username, password, email,firstname,lastname,mobile ,roleArray, callback, context) {
     console.log('add firstName: '+firstname);
@@ -107,9 +130,7 @@ function addUser(username,password,email,firstName,lastName,mobile,  roles, call
             console.log('user added:' + user);
             callback(context, null, user);
         }
-
     });
-
 }
 
 function updateUser(id,username,email,firstname,lastname,mobile, roles, callback, context) {
@@ -122,8 +143,8 @@ function updateUser(id,username,email,firstname,lastname,mobile, roles, callback
             if (err) return callback(context, err);
             return callback(context, null, found);
         })
-
     });
+
 /*
     Ticket.find({ "_id": req.body.ticketId }, function(err, ticket) {
         if (err) res.send(err);
