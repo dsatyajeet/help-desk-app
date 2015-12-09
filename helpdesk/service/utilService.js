@@ -2,7 +2,7 @@ exports.generalSyncCallback = function (context, err, resultObj, message) {
     if (err) {
         renderError(err, context.request, context.response);
         if(context.callback)
-        context.callback(err);
+            context.callback(err);
     }
     else {
         if (message) {
@@ -13,7 +13,23 @@ exports.generalSyncCallback = function (context, err, resultObj, message) {
                 context.response.json(resultObj);
         }
         if(context.callback)
-        context.callback(null);
+            context.callback(null);
+    }
+}
+
+exports.setUserSyncCallback = function (context, err, resultObj, message) {
+    if (err) {
+        renderError(err, context.request, context.response);
+        if (context.callback)
+            context.callback(err);
+    }
+    else {
+        console.log('result is: '+resultObj);
+        console.log('contect in user util: '+context);
+        context.thisUser=resultObj;
+        if(context.callback)
+            context.callback(null);
+
     }
 }
 
@@ -23,10 +39,11 @@ function renderError(err, req, res, next) {
     res.json({errorMessage: err.message});
 }
 
-exports.getContext=function(req,res,cb){
+exports.getContext=function(req,res,cb,user){
     var context={};
     context.request=req;
     context.response=res;
     context.callback=cb;
+    context.thisUser=user;
     return context;
 }
