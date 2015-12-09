@@ -6,21 +6,26 @@ var Ticket = require('../models/ticket');
 var express = require('express');
 var router = express.Router();
 var oauth2 = require('../oauth/oauth2');
+var userService = require('../service/userService');
+var utilService = require('../service/utilService');
+var ticketService = require('../service/ticketService');
+var async = require('async');
+
 
 /* POST Ticket Add listing. */
 router.route('/add').post(oauth2.isLoggedIn, function(req, res, next) {
-    oauth2.isLoggedIn
-    Ticket.create({
-        subject: req.body.subject,
-        content: req.body.content,
-        createDate: new Date(),
-        updateDate: new Date()
-    }, function(err,ticket) {
-        if (err)
-            res.send(err);
-        //res.send("added successfully");
-        res.json(ticket);
-    });
+    var actionArray = [
+        function validation(syncCallBack) {
+            var context = utilService.getContext(req, res, syncCallBack);
+            userService.validatUserByRoles(req.header('Authorization').split(' ')[1], ['Customer'],
+                utilService.generalSyncCallback, context);
+        },
+        function executeAPI(syncCallBack) {
+            var context = utilService.getContext(req, res, syncCallBack);
+            ticketService.addTicket(req.body.userName,req.body.subject, req.body.content, utilService.generalSyncCallback,context);
+        }
+    ];
+    async.series(actionArray);
 });
 
 /* GET home page. */

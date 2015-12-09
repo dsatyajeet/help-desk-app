@@ -38,7 +38,7 @@ services.factory('userService', ['$http', function ($http) {
             return $http.post('/users/oauth/token', userData, config);
         },
         getProfile: function (userName) {
-            return $http.post('/users/oauth/token', userData, config);
+            return $http.post('/users/'+userName,config);
         }
 
     }
