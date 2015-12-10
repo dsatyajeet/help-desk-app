@@ -58,7 +58,30 @@
 </head>
 
 <body style="color: #B9611F" ng-app="helpDeskApp">
-<div class="container">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <a class="navbar-brand" href="/admin">$(Admin/User)</a>
+    </div>
+    <!-- Top Menu Items -->
+    <ul class="nav navbar-right top-nav">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>$(User Name)<b
+                        class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <!-- /.navbar-collapse -->
+</nav>
+<div class="container" style="margin-top: 100px">
     <div class="row">
         <h2>Optimize performance through advanced targeting solutions</h2>
 
