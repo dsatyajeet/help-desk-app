@@ -99,13 +99,13 @@
                         <div class="col-md-5" >
                             <div id="registration" class="form-group hide-tab">
                                 <div class="col-sm-offset-3 col-sm-7">
-                                    <label for="firstname">First name</label>
-                                    <input type="text" ng-model="userEntry.firstname" class="form-control input-sm" name="firstname" id="firstname"
+                                    <label for="firstName">First name</label>
+                                    <input type="text" ng-model="userEntry.firstName" class="form-control input-sm" name="firstName" id="firstName"
                                            placeholder="First Name" required>
                                 </div>
                                 <div class="col-sm-offset-3 col-sm-7">
-                                    <label for="lastname">Last name</label>
-                                    <input type="text" ng-model="userEntry.lastname" class="form-control input-sm" name="lastname" id="lastname"
+                                    <label for="lastName">Last name</label>
+                                    <input type="text" ng-model="userEntry.lastName" class="form-control input-sm" name="lastName" id="lastName"
                                            placeholder="Last Name" required>
                                 </div>
                                 <div class="col-sm-offset-3 col-sm-7">
@@ -120,6 +120,7 @@
                                 </div>
                                 <div class="col-sm-offset-3 col-sm-7">
                                     <label for="userName">User Name</label>
+                                    <input type="hidden" ng-model="userEntry.roles" ng-value="Customer">
                                     <input type="text" ng-model="userEntry.username" class="form-control input-sm" name="username" id="username"
                                            placeholder="User Name" required>
                                 </div>
