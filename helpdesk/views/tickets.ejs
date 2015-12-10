@@ -50,76 +50,59 @@
           href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic"/>
 
 </head>
-<body ng-app="helpDeskApp" >
+<body ng-app="helpDeskApp">
 <div ng-controller="userController" class="col-md-12 container">
-    <div class="panel panel-default plain profile-panel">
-        <div class="panel-body">
-            <div class="col-md-2">
-                <div class="profile-avatar">
-                    <img class="img-responsive" src="../images/profile.png" alt="profile picture">
-                </div>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-12">
-                <div class="user-name">
-                    $({{profile.username}}) <span class="label label-success">$({{profile.roles}})</span>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/admin">$(Admin/User)</a>
+        </div>
+        <!-- Top Menu Items -->
+        <ul class="nav navbar-right top-nav">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>$(User Name)<b
+                            class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <!-- /.navbar-collapse -->
+    </nav>
+</div>
+<div class="col-md-12 col-md-offset-9" style="margin-top: 80px">
+    <div class="head-btn wow fadeInLeft">
+        <a href="/ticket"
+           class="btn-primary">Add New Ticket</a>
+    </div>
+</div>
+<div ng-controller="ticketsController" style="margin-top: 140px">
 
-                </div>
-                <div title="logout" class="glyphicon glyphicon-log-out slideInLeft col-md-offset-10">
-                    <a href="#" ng-click="logout();">Logout</a>
-                </div>
-                <div class="profile-stats-info">
-                    <a href="#" title="ticket-complete"><i class="glyphicon glyphicon-flag"
-                                                           style="color: green;"></i><label style="color: green;">
-                            <strong>2000</strong><i>&nbsp;&nbsp;completed</i></label></a>
-                    <a href="#" title="Tickets-not-complete"><i class="glyphicon glyphicon-flag"
-                                                                style="color: red;"></i>
-                        <lable style="color: red;"><strong>2000</strong><i>&nbsp;&nbsp;Not-completed</i></lable>
-                    </a>
-                </div>
+    <div ng-repeat="ticket in tickets" id="tickets" class="container panel panel-group"
+         style="background-image:url('../images/banner5.jpg');">
+        <div class="row">
+            <div class="feature-img col-md-2 slideInLeft"><br><br>
+                <img src="../images/ticket-logo.png" alt="image" class="img-responsive wow fadeInLeft">
+            </div>
+            <div class="col-md-6 wow slideInLeft">
+                Subject:<input ng-model="ticket.subject" type="text" name="subject" class="form-control input-sm" disabled/>
+                Content:<textarea ng-model="ticket.content" class="form-control" cols="9" rows="3" name="content" disabled></textarea>
+                Status:<div class="form-control input-sm">{{ticket.status}}</div>
+                Create Date:<input ng-model="ticket.createDate" type="text" name="create-date" class="form-control input-sm" disabled>
+                Update Date:<input ng-model="ticket.updateDate" type="text" name="update-date" class="form-control input-sm" disabled>
                 <br>
-
-                <div class="panel-footer white-content">
-                    <ul class="profile-info">
-                        <li><i class="glyphicon glyphicon-user"></i> $(username)</li>
-                        <li><i class="glyphicon glyphicon-phone"></i> $(contact number)</li>
-                        <li><i class="glyphicon glyphicon-envelope"></i> $(emailid)</li>
-                    </ul>
-                </div>
+            </div>
+            <div class="col-md-3 wow slideInLeft"><br><br><br><br><br>
+                <a href="#" ng-click="delete(ticket);" class="btn-default">Delete</a>
             </div>
         </div>
-
     </div>
-</div>
-<div ng-controller="ticketsController">
-<div ng-repeat="ticket in tickets"  id="tickets" class="container panel panel-group" style="background-image:url('../images/banner5.jpg');">
-    <div class="row">
-        <div class="feature-img col-md-2 slideInLeft"><br><br>
-            <img src="../images/ticket-logo.png" alt="image" class="img-responsive wow fadeInLeft">
-        </div>
-        <div class="col-md-6 wow slideInLeft">
-            Subject
-            :
-            <input ng-model="ticket.subject" type="text"  name="subject" class="form-control input-sm" disabled/>
-
-            Content
-            :
-            <textarea ng-model="ticket.content" class="form-control" cols="9" rows="3" name="content" disabled></textarea>
-            Status
-            :
-            <div class="form-control input-sm">{{ticket.status}}</div>
-            Create Date
-            :
-            <input ng-model="ticket.createDate" type="text" name="create-date" class="form-control input-sm" disabled>
-
-            Update Date
-            :
-            <input ng-model="ticket.updateDate" type="text" name="update-date" class="form-control input-sm" disabled>
-        </div>
-        <div class="col-md-3 wow slideInLeft"><br><br><br>
-            <a href="#" ng-click="delete(ticket);" class="btn-default">Delete</a>
-        </div>
-    </div>
-</div>
 </div>
 <br>
 </body>
