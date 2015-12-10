@@ -3,7 +3,7 @@
  */
 
 
-var services = angular.module('helpDeskApp.services', []);
+var services = angular.module('helpDeskApp.services', ['ngStorage']);
 
 services.factory('ticketService', ['$http', function ($http) {
     return {
@@ -16,14 +16,21 @@ services.factory('ticketService', ['$http', function ($http) {
         delete: function (id) {
             return $http.delete('/ticket/delete/' + id);
         },
-        getAll: function () {
-            return $http.get('/ticket/getAll');
+        getAll: function(userName) {
+            return $http.get('/ticket/getAll/'+userName);
         },
+        getAdminTickets: function() {
+            return $http.get('/ticket/getAdminTickets');
+        },
+
+        updateStatus: function(ticketId) {
+            return $http.put('/ticket/updateStatus/'+ticketId);
+        }
     }
 }]);
 
 
-services.factory('userService', ['$http', function ($http) {
+services.factory('userService', ['$http','$sessionStorage', function ($http,$sessionStorage) {
     var config = {
         headers: {
             'Authorization': 'Basic aWhlbHA6aXNlY3JldA==',
@@ -37,8 +44,17 @@ services.factory('userService', ['$http', function ($http) {
         login: function (userData) {
             return $http.post('/users/oauth/token', userData, config);
         },
-        getProfile: function (userName) {
-            return $http.post('/users/'+userName,config);
+        getProfile: function () {
+            var config ={
+                headers: {
+                    'Authorization': 'Bearer '+$sessionStorage.AuthHeader,
+                    'Accept': 'application/json;'
+                }
+            };
+            return $http.get('/users/myProfile',config);
+        },
+        update: function (userData) {
+            return $http.put('/users/update', userData);
         }
 
     }

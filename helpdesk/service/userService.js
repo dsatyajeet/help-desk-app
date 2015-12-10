@@ -36,7 +36,9 @@ exports.getUserByToken = function (token, callback, context) {
         if (!(accessToken && accessToken.userId)) {
             return callback(context, new Error('Access token not found.'));
         }
+        console.log('token userId: '+accessToken.userId);
         User.findById(accessToken.userId).populate('roles').exec(err, function (err, loadedUser) {
+            console.log('token err :'+err+'   user loaded:'+loadedUser);
             if (!loadedUser) {
                 return callback(context, new Error('User not found.'));
             }
@@ -65,21 +67,10 @@ exports.add = function (username, password, email,firstname,lastname,mobile ,rol
         });
 };
 
-exports.update = function (id,username, email,firstname,lastname,mobile, roleArray, callback, context) {
-    Role.find()
-        .where('name')
-        .in(roleArray)
-        .exec(function (err, roles) {
-            if (err) {
-                console.error('error in finding user.');
-                return callback(context, err);
-            }
-            else {
-                console.log(' record found ' + roles);
-                console.log('going to update outside ' + roles.length);
-                updateUser(id, username,email,firstname,lastname,mobile, roles, callback, context);
-            }
-        });
+exports.update = function (id, email,firstname,lastname,mobile, callback, context) {
+
+                updateUser(id,email,firstname,lastname,mobile, callback, context);
+
 };
 
 exports.get = function (username, callback, context) {
@@ -133,9 +124,8 @@ function addUser(username,password,email,firstName,lastName,mobile,  roles, call
     });
 }
 
-function updateUser(id,username,email,firstname,lastname,mobile, roles, callback, context) {
-    console.log('going to update--'+id+' username:'+username);
-    User.findByIdAndUpdate(id,{username:username,email:email,firstname:firstname,lastname:lastname,mobile:mobile,roles: roles}, function (err, userUpdated) {
+function updateUser(id,email,firstname,lastname,mobile, callback, context) {
+    User.findByIdAndUpdate(id,{email:email,firstname:firstname,lastname:lastname,mobile:mobile}, function (err, userUpdated) {
         console.log('update status: '+err+'    update user: '+userUpdated);
         if (err) return callback(context, err);
 
@@ -144,11 +134,5 @@ function updateUser(id,username,email,firstname,lastname,mobile, roles, callback
             return callback(context, null, found);
         })
     });
-
-/*
-    Ticket.find({ "_id": req.body.ticketId }, function(err, ticket) {
-        if (err) res.send(err);
-        res.json(ticket);
-    });*/
     console.log('whats this..');
 }

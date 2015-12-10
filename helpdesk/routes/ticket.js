@@ -22,7 +22,7 @@ router.route('/add').post(oauth2.isLoggedIn, function(req, res, next) {
         },
         function executeAPI(syncCallBack) {
             var context = utilService.getContext(req, res, syncCallBack);
-            ticketService.addTicket(req.body.userName,req.body.subject, req.body.content, utilService.generalSyncCallback,context);
+            ticketService.addTicket(req.body.username,req.body.subject, req.body.content, utilService.generalSyncCallback,context);
         }
     ];
     async.series(actionArray);
@@ -34,10 +34,14 @@ router.get('/', function(req, res, next) {
 });
 
 /* GET home page. */
-router.get('/tickets', function(req, res, next) {
+router.get('/myTickets', function(req, res, next) {
     res.render('tickets', { title: 'Express' });
 });
 
+/* GET home page. */
+router.get('/adminTickets', function(req, res, next) {
+    res.render('admin', { title: 'Express' });
+});
 
 /* GET Ticket  listing. */
 router.route('/get/:ticketId').get(oauth2.isLoggedIn, function(req, res, next) {
@@ -50,12 +54,37 @@ router.route('/get/:ticketId').get(oauth2.isLoggedIn, function(req, res, next) {
 
 
 /* GETAll Ticket  listing. */
-router.route('/getAll').get(oauth2.isLoggedIn, function(req, res, next) {
+router.route('/getAll/:userName').get(oauth2.isLoggedIn, function(req, res, next) {
+    var actionArray = [
+        function validation(syncCallBack) {
+            var context = utilService.getContext(req, res, syncCallBack);
+            userService.validatUserByRoles(req.header('Authorization').split(' ')[1], ['Admin','Customer'],
+                utilService.generalSyncCallback, context);
+        },
+        function executeAPI(syncCallBack) {
+            var context = utilService.getContext(req, res, syncCallBack);
+            ticketService.getAllTickets(req.params.userName, utilService.generalSyncCallback,context);
+        }
+    ];
+    async.series(actionArray);
 
-    Ticket.find({}, function(err, tickets) {
-        if (err) res.send(err);
-        res.json(tickets);
-    });
+});
+
+/* GETAll Ticket  listing. */
+router.route('/getAdminTickets').get(oauth2.isLoggedIn, function(req, res, next) {
+    var actionArray = [
+        function validation(syncCallBack) {
+            var context = utilService.getContext(req, res, syncCallBack);
+            userService.validatUserByRoles(req.header('Authorization').split(' ')[1], ['Admin'],
+                utilService.generalSyncCallback, context);
+        },
+        function executeAPI(syncCallBack) {
+            var context = utilService.getContext(req, res, syncCallBack);
+            ticketService.getAdminTickets(utilService.generalSyncCallback,context);
+        }
+    ];
+    async.series(actionArray);
+
 });
 
 /* PUT Ticket Update listing. */
@@ -72,6 +101,27 @@ router.route('/update').put(oauth2.isLoggedIn, function(req, res, next) {
 
 
 });
+
+
+/* PUT Ticket Update listing. */
+router.route('/updateStatus/:ticketId').put(oauth2.isLoggedIn, function(req, res, next) {
+
+    var actionArray = [
+        function validation(syncCallBack) {
+            var context = utilService.getContext(req, res, syncCallBack);
+            userService.validatUserByRoles(req.header('Authorization').split(' ')[1], ['Admin'],
+                utilService.generalSyncCallback, context);
+        },
+        function executeAPI(syncCallBack) {
+            var context = utilService.getContext(req, res, syncCallBack);
+            ticketService.updateStatus(req.params.ticketId, utilService.generalSyncCallback,context);
+        }
+    ];
+    async.series(actionArray);
+
+
+});
+
 
 /* delete Ticket  listing. */
 router.route('/delete/:ticketId').delete(oauth2.isLoggedIn, function(req, res, next) {

@@ -25,21 +25,19 @@ helpDeskApp.controller('ticketController', ['$sessionStorage','$scope', '$http',
     };
 
 
-
 }]);
 
-helpDeskApp.controller('ticketsController', ['$scope', '$http', 'ticketService', function ($scope, $http, ticketService) {
+helpDeskApp.controller('ticketsController', ['$sessionStorage', '$scope', '$http', 'ticketService', function ($sessionStorage, $scope, $http, ticketService) {
 
-    $scope.tickets = ticketService.getAll()
+    $scope.tickets = ticketService.getAll($sessionStorage.UserName)
         .success(function (data) {
             $scope.tickets = data;
         });
 
     $scope.delete = function (ticket) {
-        console.log(ticket._id);
         ticketService.delete(ticket._id)
             .success(function (data) {
-                $scope.tickets = ticketService.getAll()
+                $scope.tickets = ticketService.getAll($sessionStorage.UserName)
                     .success(function (data) {
                         $scope.tickets = data;
                     });
@@ -47,8 +45,31 @@ helpDeskApp.controller('ticketsController', ['$scope', '$http', 'ticketService',
     };
 }]);
 
+helpDeskApp.controller('adminTicketsController', ['$sessionStorage', '$scope', '$http', 'ticketService', function ($sessionStorage, $scope, $http, ticketService) {
 
-helpDeskApp.controller('userController', ['$sessionStorage', '$scope', '$http', '$window', 'userService', function ($sessionStorage, $scope, $http, $window, userService) {
+    $scope.adminTickets = ticketService.getAdminTickets()
+        .success(function (data) {
+            $scope.adminTickets = data;
+        });
+
+    $scope.updateStatus = function (ticketId) {
+
+        ticketService.updateStatus(ticketId)
+            .success(function (data) {
+                addNotification("Ticket status updated successfully ", "information");
+                $scope.adminTickets = ticketService.getAdminTickets()
+                    .success(function (data) {
+                        $scope.adminTickets = data;
+                    });
+            });
+    };
+
+
+
+}]);
+
+
+helpDeskApp.controller('userController', ['$sessionStorage', '$scope', '$http', '$window', 'userService','$timeout', function ($sessionStorage, $scope, $http, $window, userService,$timeout) {
 
     $scope.logout = function () {
         $sessionStorage.AuthHeader = '';
@@ -64,6 +85,7 @@ helpDeskApp.controller('userController', ['$sessionStorage', '$scope', '$http', 
         });
 
     $scope.register = function (userEntry) {
+        userEntry.roles='Customer';
         userService.register(userEntry)
             .success(function (data) {
                 addNotification("User Added successfully : UserId is " + data._id, "information");
@@ -74,9 +96,20 @@ helpDeskApp.controller('userController', ['$sessionStorage', '$scope', '$http', 
         loginEntry.grant_type = "password";
 
         userService.login(loginEntry).success(function (data) {
+
             $sessionStorage.AuthHeader = data.access_token;
             $sessionStorage.UserName = loginEntry.username;
             $window.location.href = '/ticket';
+
+            $scope.profile = userService.getProfile().success(function (profile) {
+                if (profile.roles[0].name === 'Admin') {
+
+                    $window.location.href = '/ticket/adminTickets';
+                } else {
+                    $window.location.href = '/ticket/myTickets';
+                }
+            });
+
         }).error(function () {
             $sessionStorage.AuthHeader = '';
             $sessionStorage.UserName = '';
@@ -84,5 +117,35 @@ helpDeskApp.controller('userController', ['$sessionStorage', '$scope', '$http', 
             console.log("logged in not successfully");
         });
     };
+
+}]);
+
+helpDeskApp.controller('profileController', ['$sessionStorage', '$scope', '$http', '$window', 'userService', function ($sessionStorage, $scope, $http, $window, userService) {
+
+    $scope.profile = userService.getProfile($sessionStorage.AuthHeader)
+        .success(function (data) {
+            $scope.profile = data;
+            $scope.userEntry=data;
+        });
+
+
+    $scope.logout = function () {
+        $sessionStorage.AuthHeader = '';
+        $sessionStorage.UserName = '';
+        $sessionStorage.$reset();
+        $window.location.href = '/';
+
+    };
+
+    $scope.viewProfile = function(){
+        $window.location.href = '/users/profile';
+    };
+
+    $scope.update = function(userEntry){
+        userService.update(userEntry)
+            .success(function (data) {
+                addNotification("User Update successfully : UserId is " + data._id, "information");
+            });
+    }
 
 }]);
