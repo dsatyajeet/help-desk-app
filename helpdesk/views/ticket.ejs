@@ -63,12 +63,13 @@
         <div ng-controller="profileController">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <span class="navbar-brand" >{{profile.roles[0].name}}</span>
+                <span class="navbar-brand">{{profile.roles[0].name}}</span>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>{{profile.firstname}} {{profile.lastname}}<b
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>{{profile.firstname}}
+                        {{profile.lastname}}<b
                                 class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
@@ -106,35 +107,44 @@
 </div>
 
 <div class="container">
-    <div class="row" >
+    <div class="row">
         <div class="col-md-6 intro-pic wow slideInLeft">
             <img src="images/home-head.jpg" alt="image" class="img-responsive">
         </div>
 
-        <div class="col-md-6 wow slideInRight">
-
+        <div class="col-md-6 wow slideInRight" ng-controller="ticketController">
+        <form role="form" id="ticketForm" name="ticketForm"  novalidate>
             <div class="row">
-                <div class="col-md-12" ng-controller="ticketController">
+                <div class="col-md-12" >
 
                     <div class="form-group">
                         <label for="subject">Subject</label>
-                        <input ng-model="ticketEntry.subject" type="text" class="form-control" id="subject"
-                               placeholder="Subject">
+                        <input name="subject" ng-model="ticketEntry.subject" type="text" class="form-control" id="subject"
+                               placeholder="subject" required>
+                        <span style="color:red" ng-show="ticketForm.subject.$invalid && !ticketForm.subject.$pristine">
+				            <span ng-show="ticketForm.subject.$invalid && !ticketForm.subject.$pristine">Subject is required.</span>
+		                </span>
+
                     </div>
 
 
                     <div class="form-group ">
                         <label for="content">Ticket Content</label>
-                            <textarea ng-model="ticketEntry.content" rows="12" class="form-control" cols="3" name="content"
-                          placeholder="Enter content here..."></textarea>
+                            <textarea ng-model="ticketEntry.content" name="content" rows="12" class="form-control" cols="3"
+                                      name="content"
+                                      placeholder="Enter content here..." required></textarea>
+                        <span style="color:red" ng-show="ticketForm.content.$invalid && !ticketForm.content.$pristine">
+				            <span ng-show="ticketForm.content.$invalid && !ticketForm.content.$pristine">Content is required.</span>
+		                </span>
                     </div>
 
                     <div class="head-btn wow fadeInLeft">
-                        <input type="submit" class="btn-default" ng-click="createTicket(ticketEntry)" value="RaiseTicket"/>
+                        <button ng-disabled="ticketForm.$invalid" name="RaiseTicket" type="submit" class="btn-default" ng-click="createTicket(ticketEntry)"
+                               value="RaiseTicket">RaiseTicket</button>
                     </div>
                 </div>
             </div>
-
+        </form>
 
         </div>
     </div>

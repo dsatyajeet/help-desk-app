@@ -96,65 +96,119 @@
                                    class="btn-default">Register</a>
                             </div>
                         </div>
-                        <div class="col-md-5" >
-                            <div id="registration" class="form-group hide-tab">
-                                <div class="col-sm-offset-3 col-sm-7">
-                                    <label for="firstName">First name</label>
-                                    <input type="text" ng-model="userEntry.firstName" class="form-control input-sm" name="firstName" id="firstName"
-                                           placeholder="First Name" required>
-                                </div>
-                                <div class="col-sm-offset-3 col-sm-7">
-                                    <label for="lastName">Last name</label>
-                                    <input type="text" ng-model="userEntry.lastName" class="form-control input-sm" name="lastName" id="lastName"
-                                           placeholder="Last Name" required>
-                                </div>
-                                <div class="col-sm-offset-3 col-sm-7">
-                                    <label for="email">Email ID</label>
-                                    <input type="text" ng-model="userEntry.email" class="form-control input-sm" name="email" id="email"
-                                           placeholder="Email ID" required>
-                                </div>
-                                <div class="col-sm-offset-3 col-sm-7">
-                                    <label for="mobile">Mobile Number</label>
-                                    <input type="text" ng-model="userEntry.mobile" class="form-control input-sm" name="mobile" id="mobile"
-                                           placeholder="Mobile Number" required>
-                                </div>
-                                <div class="col-sm-offset-3 col-sm-7">
-                                    <label for="userName">User Name</label>
-                                    <input type="hidden" ng-model="userEntry.roles" ng-value="Customer">
-                                    <input type="text" ng-model="userEntry.username" class="form-control input-sm" name="username" id="username"
-                                           placeholder="User Name" required>
-                                </div>
-                                <div class="col-sm-offset-3 col-sm-7">
-                                    <label for="password">Password</label>
-                                    <input type="password" ng-model="userEntry.password" class="form-control input-sm" name="password" id="password"
-                                           placeholder="Password" required>
-                                </div>
-                                <div class="col-sm-offset-3 col-sm-7">
+                        <div class="col-md-5">
+                            <form role="form" id="registerForm" name="registerForm" novalidate>
+                                <div id="registration" class="form-group hide-tab">
                                     <div class="col-sm-offset-3 col-sm-7">
-                                        <input type="submit" ng-click="register(userEntry);" class="btn-default" value="Register"/>
+                                        <label for="firstName">First name</label>
+                                        <input type="text" ng-model="userEntry.firstName" name="firstName" class="form-control input-sm"
+                                               name="firstName" id="firstName"
+                                               placeholder="First Name" required>
+                                        <span style="color:red"
+                                              ng-show="registerForm.firstName.$invalid && !registerForm.firstName.$pristine">
+				                            <span ng-show="registerForm.firstName.$invalid && !registerForm.firstName.$pristine">FirstName is required.</span>
+		                                </span>
+                                    </div>
+                                    <div class="col-sm-offset-3 col-sm-7">
+                                        <label for="lastName">Last name</label>
+                                        <input type="text" ng-model="userEntry.lastName" class="form-control input-sm"
+                                               name="lastName" id="lastName"
+                                               placeholder="Last Name" required>
+                                        <span style="color:red"
+                                              ng-show="registerForm.lastName.$invalid && !registerForm.lastName.$pristine">
+				                            <span ng-show="registerForm.lastName.$invalid && !registerForm.lastName.$pristine">LastName is required.</span>
+		                                </span>
+
+                                    </div>
+                                    <div class="col-sm-offset-3 col-sm-7">
+                                        <label for="email">Email ID</label>
+                                        <input type="text" ng-model="userEntry.email" class="form-control input-sm"
+                                               name="email" id="email"
+                                               placeholder="Email ID" required>
+                                        <span style="color:red"
+                                              ng-show="registerForm.email.$invalid && !registerForm.email.$pristine">
+				                            <span ng-show="registerForm.email.$invalid && !registerForm.email.$pristine">Email ID is required.</span>
+		                                </span>
+
+                                    </div>
+                                    <div class="col-sm-offset-3 col-sm-7">
+                                        <label for="mobile">Mobile Number</label>
+                                        <input type="text" ng-model="userEntry.mobile" class="form-control input-sm"
+                                               name="mobile" id="mobile"
+                                               placeholder="Mobile Number" required>
+                                        <span style="color:red"
+                                              ng-show="registerForm.mobile.$invalid && !registerForm.mobile.$pristine">
+				                            <span ng-show="registerForm.mobile.$invalid && !registerForm.mobile.$pristine">Mobile Number is required.</span>
+		                                </span>
+
+                                    </div>
+                                    <div class="col-sm-offset-3 col-sm-7">
+                                        <label for="userName">User Name</label>
+                                        <input type="hidden" ng-model="userEntry.roles" ng-value="Customer">
+                                        <input type="text" ng-model="userEntry.username" class="form-control input-sm"
+                                               name="username" id="username"
+                                               placeholder="User Name" required>
+                                        <span style="color:red"
+                                              ng-show="registerForm.username.$invalid && !registerForm.username.$pristine">
+				                            <span ng-show="registerForm.username.$invalid && !registerForm.username.$pristine">UserName is required.</span>
+		                                </span>
+
+                                    </div>
+                                    <div class="col-sm-offset-3 col-sm-7">
+                                        <label for="password">Password</label>
+                                        <input type="password" ng-model="userEntry.password"
+                                               class="form-control input-sm" name="password" id="password"
+                                               placeholder="Password" required>
+                                        <span style="color:red"
+                                              ng-show="registerForm.password.$invalid && !registerForm.password.$pristine">
+				                            <span ng-show="registerForm.password.$invalid && !registerForm.password.$pristine">Password is required.</span>
+		                                </span>
+
+                                    </div>
+                                    <div class="col-sm-offset-3 col-sm-7">
+                                        <div class="col-sm-offset-3 col-sm-7">
+                                            <button ng-disabled="registerForm.$invalid" type="submit" ng-click="register(userEntry);" class="btn-default"
+                                                   value="Register">Register</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </form>
+                            <form role="form" name="loginForm" id="loginForm" novalidate>
                             <div id="login" class="form-group hide-tab">
                                 <div class="col-sm-offset-3 col-sm-7">
                                     <label for="userName">User Name</label>
-                                    <input type="text" class="form-control input-sm" ng-model="loginEntry.username" name="username" id="username"
+                                    <input type="text" class="form-control input-sm" ng-model="loginEntry.username"
+                                           name="username" id="username"
                                            placeholder="User Name" required>
+                                        <span style="color:red"
+                                              ng-show="loginForm.username.$invalid && !loginForm.username.$pristine">
+				                            <span ng-show="loginForm.username.$invalid && !loginForm.username.$pristine">UserName is required.</span>
+		                                </span>
+
                                 </div>
                                 <div class="col-sm-offset-3 col-sm-7">
                                     <label for="password">Password</label>
-                                    <input type="password" ng-model="loginEntry.password" class="form-control input-sm" name="password"
+                                    <input type="password" ng-model="loginEntry.password" class="form-control input-sm"
+                                           name="password"
                                            id="password"
                                            placeholder="Password" required>
+                                        <span style="color:red"
+                                              ng-show="loginForm.password.$invalid && !loginForm.password.$pristine">
+				                            <span ng-show="loginForm.password.$invalid && !loginForm.password.$pristine">Password is required.</span>
+		                                </span>
+
                                 </div>
 
                                 <div class="col-sm-offset-3 col-sm-7">
                                     <div class="col-sm-offset-3 col-sm-7">
-                                        <input type="hidden" name="grant_type" ng-model="loginEntry.grant_type" ng-value="password"/>
-                                        <input type="submit" ng-click="login(loginEntry);" class="btn-default" value="Login"/>
+                                        <input type="hidden" name="grant_type" ng-model="loginEntry.grant_type"
+                                               ng-value="password"/>
+                                        <button ng-disabled="loginForm.$invalid" type="submit" ng-click="login(loginEntry);" class="btn-default"
+                                               value="Login">Login</button>
                                     </div>
                                 </div>
                             </div>
+                            </form>
                         </div>
                     </div>
                 </div>

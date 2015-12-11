@@ -59,17 +59,18 @@
 <body ng-app="helpDeskApp">
 
 
-<div  ng-controller="profileController" id="wrapper" class="container-fluid">
+<div ng-controller="profileController" id="wrapper" class="container-fluid">
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div >
+        <div>
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <span class="navbar-brand" >{{profile.roles[0].name}}</span>
+                <span class="navbar-brand">{{profile.roles[0].name}}</span>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>{{profile.firstname}} {{profile.lastname}}<b
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>{{profile.firstname}}
+                        {{profile.lastname}}<b
                                 class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
@@ -103,54 +104,79 @@
             <div class="col-md-4 intro-pic wow slideInLeft">
                 <img src="../images/home-head.jpg" alt="image" class="img-responsive">
             </div>
-            <div class="col-md-8 container">
-                <div class="col-sm-offset-3 col-sm-7">
-                    <label for="userName">User Name</label>
-                    <input type="text" ng-model="userEntry.username" class="form-control input-sm"
-                           name="username"
-                           id="username" disabled
-                           placeholder="User Name" required>
-                    <input type="hidden" ng-model="userEntry._id" ng-value="userEntry._id">
-                </div>
-                <div id="update-profile" class="form-group">
+            <form name="profileForm" id="profileForm" role="form" novalidate>
+                <div class="col-md-8 container">
                     <div class="col-sm-offset-3 col-sm-7">
-                        <label for="firstname">First name</label>
-                        <input type="text" ng-model="userEntry.firstname" class="form-control input-sm"
-                               name="firstname"
-                               id="firstname"
-                               placeholder="First Name" required>
+                        <label for="userName">User Name</label>
+                        <input type="text" ng-model="userEntry.username" class="form-control input-sm"
+                               name="username"
+                               id="username" disabled
+                               placeholder="User Name" required>
+                        <input type="hidden" ng-model="userEntry._id" ng-value="userEntry._id">
                     </div>
-                    <div class="col-sm-offset-3 col-sm-7">
-                        <label for="lastname">Last name</label>
-                        <input type="text" ng-model="userEntry.lastname" class="form-control input-sm"
-                               name="lastname"
-                               id="lastname"
-                               placeholder="Last Name" required>
-                    </div>
-                    <div class="col-sm-offset-3 col-sm-7">
-                        <label for="email">Email ID</label>
-                        <input type="text" ng-model="userEntry.email" class="form-control input-sm" name="email"
-                               id="email"
-                               placeholder="Email ID" required>
-                    </div>
-                    <div class="col-sm-offset-3 col-sm-7">
-                        <label for="mobile">Mobile Number</label>
-                        <input type="text" ng-model="userEntry.mobile" class="form-control input-sm" name="mobile"
-                               id="mobile"
-                               placeholder="Mobile Number" required>
-                    </div>
-
-
-                    <div class=" col-md-offset-2 col-md-9">
+                    <div id="update-profile" class="form-group">
                         <div class="col-sm-offset-3 col-sm-7">
-                            <input type="submit" ng-click="update(userEntry)" class="btn-default"
-                                   value="Update"/>
+                            <label for="firstname">First name</label>
+                            <input type="text" ng-model="userEntry.firstname" class="form-control input-sm"
+                                   name="firstname"
+                                   id="firstname"
+                                   placeholder="First Name" required>
+                                <span style="color:red"
+                                      ng-show="profileForm.firstname.$invalid && !profileForm.firstname.$pristine">
+                                    <span ng-show="profileForm.firstname.$invalid && !profileForm.firstname.$pristine">First Name is required.</span>
+                                </span>
+
 
                         </div>
-                    </div>
+                        <div class="col-sm-offset-3 col-sm-7">
+                            <label for="lastname">Last name</label>
+                            <input type="text" ng-model="userEntry.lastname" class="form-control input-sm"
+                                   name="lastname"
+                                   id="lastname"
+                                   placeholder="Last Name" required>
+                                <span style="color:red"
+                                      ng-show="profileForm.lastname.$invalid && !profileForm.lastname.$pristine">
+                                    <span ng-show="profileForm.lastname.$invalid && !profileForm.lastname.$pristine">LastName is required.</span>
+                                </span>
 
+                        </div>
+                        <div class="col-sm-offset-3 col-sm-7">
+                            <label for="email">Email ID</label>
+                            <input type="text" ng-model="userEntry.email" class="form-control input-sm" name="email"
+                                   id="email"
+                                   placeholder="Email ID" required>
+                                <span style="color:red"
+                                      ng-show="profileForm.email.$invalid && !profileForm.email.$pristine">
+                                    <span ng-show="profileForm.email.$invalid && !profileForm.email.$pristine">Email Id is required.</span>
+                                </span>
+
+                        </div>
+                        <div class="col-sm-offset-3 col-sm-7">
+                            <label for="mobile">Mobile Number</label>
+                            <input type="text" ng-model="userEntry.mobile" class="form-control input-sm" name="mobile"
+                                   id="mobile"
+                                   placeholder="Mobile Number" required>
+                                <span style="color:red"
+                                      ng-show="profileForm.mobile.$invalid && !profileForm.mobile.$pristine">
+                                    <span ng-show="profileForm.mobile.$invalid && !profileForm.mobile.$pristine">Mobile Number is required.</span>
+                                </span>
+
+                        </div>
+
+
+                        <div class=" col-md-offset-2 col-md-9">
+                            <div class="col-sm-offset-3 col-sm-7">
+                                <button ng-disabled="profileForm.$invalid" type="submit" ng-click="update(userEntry)"
+                                        class="btn-default"
+                                        value="Update">Update
+                                </button>
+
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
