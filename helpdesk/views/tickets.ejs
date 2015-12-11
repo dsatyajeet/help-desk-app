@@ -35,6 +35,7 @@
     <script src="../javascripts/jquery.noty.packaged.js"></script>
     <script src="../javascripts/helpdesk.js"></script>
     <script src="../javascripts/login.js"></script>
+    <script src="../javascripts/moment.min.js"></script>
     ​
     <script src="../javascripts/angular.min.js"></script>
     <script src="../javascripts/angular-resource.min.js"></script>
@@ -97,8 +98,8 @@
                 Subject:<input ng-model="ticket.subject" type="text" name="subject" class="form-control input-sm" disabled/>
                 Content:<textarea ng-model="ticket.content" class="form-control" cols="9" rows="3" name="content" disabled></textarea>
                 Status:<div class="form-control input-sm">{{ticket.status}}</div>
-                Create Date:<input ng-model="ticket.createDate" type="text" name="create-date" class="form-control input-sm" disabled>
-                Update Date:<input ng-model="ticket.updateDate" type="text" name="update-date" class="form-control input-sm" disabled>
+                Create Date:<input ng-model="ticket.createDate | dateFormat" type="text" name="create-date" class="form-control input-sm" disabled>
+                Update Date:<input ng-model="ticket.updateDate | dateFormat" type="text" name="update-date" class="form-control input-sm" disabled>
                 <br>
             </div>
             <div class="col-md-3 wow slideInLeft"><br><br><br><br><br>

@@ -9,6 +9,18 @@ var helpDeskApp = angular.module('helpDeskApp', ['ngRoute', 'ngCookies', 'ngStor
         $http.defaults.headers.common.Authorization = "Bearer " + $sessionStorage.AuthHeader;
     });
 
+helpDeskApp.filter('dateFormat', function($filter)
+{
+    return function(input)
+    {
+        if(input == null){ return ""; }
+
+        var _date = $filter('date')(new Date(input), 'MMM dd yyyy');
+
+        return _date.toUpperCase();
+
+    };
+});
 helpDeskApp.controller('ticketController', ['$sessionStorage','$scope', '$http', 'ticketService', function ($sessionStorage,$scope, $http, ticketService) {
 
 
