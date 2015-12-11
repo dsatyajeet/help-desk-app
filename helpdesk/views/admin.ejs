@@ -140,7 +140,7 @@
                                     <td>{{ticket.updateDate}}</td>
                                     <td>{{ticket.status}}</td>
 
-                                    <td ng-if="ticket.status == 'NEW' "><input type="button" name="$completed" value="complete" ng-click="updateStatus(ticket._id);"></td>
+                                    <td ng-if="ticket.status == 'NEW' "><button style="height:40px; padding:8px 15px; margin: 0px;!important;" class="btn btn-primary btn-xs" type="button" name="$completed" value="complete" ng-click="updateStatus(ticket._id);">Complete</button></td>
                                     <td ng-if="ticket.status != 'NEW' "><label style="color: green">Ticket  Resolved!!!</label></td>
 
 
