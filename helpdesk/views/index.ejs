@@ -61,14 +61,9 @@
 <div id="home" class="container-fluid">
     <div class="fullscreen landing parallax" style="background-image:url('images/backgd.jpg');" data-img-width="2300"
          data-img-height="1500" data-diff="100">
-        <div style="height: 750px; " class="row">
+        <div style="height: 650px; " class="row">
             <div class="overlay">
-                <div>
-                    <div class="container">
-                        <div class="row">
-                        </div>
-                    </div>
-                </div>
+
                 <div class="container">
                     <div class="row" ng-controller="userController">
 
@@ -91,12 +86,13 @@
                             <!-- /.header button -->
                             <div class="head-btn wow fadeInLeft">
                                 <a href="javascript:toggle('div#login','div#registration');"
-                                   class="btn-primary">Login</a>
+                                   class="btn-default">Login</a>
                                 <a href="javascript:toggle('div#registration','div#login')"
                                    class="btn-default">Register</a>
                             </div>
                         </div>
-                        <div class="col-md-5" >
+
+                        <div class="col-md-5" style="margin-top: 100px">
                             <div id="registration" class="form-group hide-tab">
                                 <div class="col-sm-offset-3 col-sm-7">
                                     <label for="firstName">First name</label>
@@ -131,7 +127,7 @@
                                 </div>
                                 <div class="col-sm-offset-3 col-sm-7">
                                     <div class="col-sm-offset-3 col-sm-7">
-                                        <input type="submit" ng-click="register(userEntry);" class="btn-default" value="Register"/>
+                                        <input type="submit" ng-click="register(userEntry);" class="btn-primary" value="Register"/>
                                     </div>
                                 </div>
                             </div>
@@ -151,7 +147,7 @@
                                 <div class="col-sm-offset-3 col-sm-7">
                                     <div class="col-sm-offset-3 col-sm-7">
                                         <input type="hidden" name="grant_type" ng-model="loginEntry.grant_type" ng-value="password"/>
-                                        <input type="submit" ng-click="login(loginEntry);" class="btn-default" value="Login"/>
+                                        <input type="submit" ng-click="login(loginEntry);" class="btn-primary" value="Login"/>
                                     </div>
                                 </div>
                             </div>

@@ -79,18 +79,18 @@
     </nav>
 
 </div>
-<div class="col-md-12 col-md-offset-9" style="margin-top: 80px">
+<div class="col-md-12 col-md-offset-9" style="margin-top: 50px">
     <div class="head-btn wow fadeInLeft">
         <a href="/ticket"
            class="btn-primary">Add New Ticket</a>
     </div>
 </div>
-<div ng-controller="ticketsController" style="margin-top: 140px">
+<div ng-controller="ticketsController">
     ​
     <div ng-repeat="ticket in tickets" id="tickets" class="container panel panel-group"
          style="background-image:url('../images/banner5.jpg');">
         <div class="row">
-            <div class="feature-img col-md-2 slideInLeft"><br><br>
+            <div class="feature-img col-md-2 slideInLeft"><br><br><br><br>
                 <img src="../images/ticket-logo.png" alt="image" class="img-responsive wow fadeInLeft">
             </div>
             <div class="col-md-6 wow slideInLeft">
@@ -101,8 +101,8 @@
                 Update Date:<input ng-model="ticket.updateDate" type="text" name="update-date" class="form-control input-sm" disabled>
                 <br>
             </div>
-            <div class="col-md-3 wow slideInLeft"><br><br><br><br><br>
-                <a href="#" ng-click="delete(ticket);" class="btn-default">Delete</a>
+            <div class="col-md-3 wow slideInLeft"><br><br><br><br><br><br>
+                <a href="#" ng-click="delete(ticket);" class="btn-primary">Delete Ticket</a>
             </div>
         </div>
     </div>

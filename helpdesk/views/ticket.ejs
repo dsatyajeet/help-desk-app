@@ -63,12 +63,13 @@
         <div ng-controller="profileController">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <span class="navbar-brand" >{{profile.roles[0].name}}</span>
+                <span class="navbar-brand">{{profile.roles[0].name}}</span>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>{{profile.firstname}} {{profile.lastname}}<b
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>{{profile.firstname}}
+                        {{profile.lastname}}<b
                                 class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
@@ -84,62 +85,55 @@
         </div>
         <!-- /.navbar-collapse -->
     </nav>
-    <div class="col-md-12 col-md-offset-9" style="margin-top: 80px">
-        <div class="head-btn wow fadeInLeft">
-            <a href="/ticket/myTickets"
-               class="btn-primary">Show Tickets</a>
-        </div>
-    </div>
-
-
-</div>
-<div class="container" style="margin-top: 100px">
-    <div class="row">
-        <h2>Optimize performance through advanced targeting solutions</h2>
-
-        <p>Good marketing makes the company look smart.Great marketing makes the customer
-            feel smart, - Joe Chernov. Never doubt a small group of thoughtful, committed people can change
-            the world. Indeed, it is the only thing that ever has, - Margaret Mead. The best way to predict
-            the future is to create it, - Peter Drucker.
-        </p>
-    </div>
-</div>
-
-<div class="container">
-    <div class="row" >
-        <div class="col-md-6 intro-pic wow slideInLeft">
-            <img src="images/home-head.jpg" alt="image" class="img-responsive">
-        </div>
-
-        <div class="col-md-6 wow slideInRight">
-
-            <div class="row">
-                <div class="col-md-12" ng-controller="ticketController">
-
-                    <div class="form-group">
-                        <label for="subject">Subject</label>
-                        <input ng-model="ticketEntry.subject" type="text" class="form-control" id="subject"
-                               placeholder="Subject">
-                    </div>
-
-
-                    <div class="form-group ">
-                        <label for="content">Ticket Content</label>
-                            <textarea ng-model="ticketEntry.content" rows="12" class="form-control" cols="3" name="content"
-                          placeholder="Enter content here..."></textarea>
-                    </div>
-
-                    <div class="head-btn wow fadeInLeft">
-                        <input type="submit" class="btn-default" ng-click="createTicket(ticketEntry)" value="RaiseTicket"/>
-                    </div>
+    <div class="fullscreen landing parallax" style="background-image:url('images/banner1.jpg'); margin-top: 60px"
+         data-img-width="2300"
+         data-img-height="1500" data-diff="100">
+        <div style="height: 600px; " class="row">
+            <!--  <div class="overlay">-->
+            <div class="col-md-12 col-md-offset-9">
+                <div class="head-btn wow fadeInLeft">
+                    <br>
+                    <a href="/ticket/myTickets"
+                       class="btn-primary">Show Tickets</a>
                 </div>
             </div>
+            <div class="container col-md-5 col-md-offset-1">
+                <div class="row">
+                    <h2>Optimize performance through advanced targeting solutions</h2>
 
+                    <p style="color: blanchedalmond">Good marketing makes the company look smart.Great marketing makes the customer
+                        feel smart, - Joe Chernov. Never doubt a small group of thoughtful, committed people can
+                        change
+                        the world. Indeed, it is the only thing that ever has, - Margaret Mead. The best way to
+                        predict
+                        the future is to create it...!!!
+                    </p>
+                </div>
+            </div>
+                <div class=" container col-md-5" ng-controller="ticketController">
 
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input ng-model="ticketEntry.subject" type="text" class="form-control"
+                           id="subject"
+                           placeholder="Subject" required>
+                </div>
+                <div class="form-group ">
+                    <label for="content">Ticket Content</label>
+                            <textarea ng-model="ticketEntry.content" rows="12" class="form-control" cols="3"
+                                      name="content"
+                                      placeholder="Enter content here..." required></textarea>
+                </div>
+
+                <div>
+                    <input type="submit" class="btn-primary" ng-click="createTicket(ticketEntry)"
+                           value="RaiseTicket"/>
+                </div>
+            </div>
         </div>
     </div>
+    <br>
 </div>
-
 <footer id>
     <div class="container">
         <div class="col-md-4 col-md-offset-4">
