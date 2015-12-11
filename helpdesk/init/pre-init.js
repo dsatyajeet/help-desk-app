@@ -163,6 +163,7 @@ getUser(uname, 'password');
 console.log('completed');
 */
 
+addClient();
 var rolearray=['Admin'];
 addUserWithRole('admin',rolearray);
 //addRole('Support');
