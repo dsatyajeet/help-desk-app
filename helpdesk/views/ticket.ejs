@@ -63,13 +63,12 @@
         <div ng-controller="profileController">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <span class="navbar-brand">{{profile.roles[0].name}}</span>
+                <span class="navbar-brand" >{{profile.roles[0].name}}</span>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>{{profile.firstname}}
-                        {{profile.lastname}}<b
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>{{profile.firstname}} {{profile.lastname}}<b
                                 class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
@@ -85,12 +84,21 @@
         </div>
         <!-- /.navbar-collapse -->
     </nav>
-    <div class="col-md-12 col-md-offset-9" style="margin-top: 80px">
-        <div class="head-btn wow fadeInLeft">
-            <a href="/ticket/myTickets"
-               class="btn-primary">Show Tickets</a>
-        </div>
-    </div>
+    <div class="fullscreen landing parallax" style="background-image:url('images/banner1.jpg'); margin-top: 60px"
+         data-img-width="2300"
+         data-img-height="1500" data-diff="100">
+        <div style="height: 600px; " class="row">
+            <!--  <div class="overlay">-->
+            <div class="col-md-12 col-md-offset-9">
+                <div class="head-btn wow fadeInLeft">
+                    <br>
+                    <a href="/ticket/myTickets"
+                       class="btn-primary">Show Tickets</a>
+                </div>
+            </div>
+            <div class="container col-md-5 col-md-offset-1">
+                <div class="row">
+                    <h2>Optimize performance through advanced targeting solutions</h2>
 
 
 </div>
@@ -142,6 +150,13 @@
                         <button ng-disabled="ticketForm.$invalid" name="RaiseTicket" type="submit" class="btn-default" ng-click="createTicket(ticketEntry)"
                                value="RaiseTicket">RaiseTicket</button>
                     </div>
+                    <p style="color: blanchedalmond">Good marketing makes the company look smart.Great marketing makes the customer
+                        feel smart, - Joe Chernov. Never doubt a small group of thoughtful, committed people can
+                        change
+                        the world. Indeed, it is the only thing that ever has, - Margaret Mead. The best way to
+                        predict
+                        the future is to create it...!!!
+                    </p>
                 </div>
             </div>
         </form>
