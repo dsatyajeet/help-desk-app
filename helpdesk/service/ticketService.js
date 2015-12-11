@@ -24,7 +24,7 @@ exports.getAllTickets = function (userName,callback, context) {
        Ticket.find({"userName":userName}, function(err, tickets) {
         if (err) callback(context, err);
         callback(context, null, tickets);
-    });
+    }).sort({"createDate":-1});
 };
 
 
@@ -32,7 +32,7 @@ exports.getAdminTickets = function (callback, context) {
     Ticket.find({}, function(err, tickets) {
         if (err) callback(context, err);
         callback(context, null, tickets);
-    });
+    }).sort({"createDate":-1});
 };
 
 exports.updateStatus = function (ticketId,callback, context) {

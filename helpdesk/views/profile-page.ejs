@@ -85,6 +85,19 @@
         </div>
         <!-- /.navbar-collapse -->
     </nav>
+
+    <div class="col-md-offset-6 col-md-6" style="margin-top: 80px">
+        <div class="head-btn wow fadeInLeft">
+            <a href="/ticket"
+               class="btn-primary">Add New Ticket</a>
+            <a ng-if="profile.roles[0].name=='Admin'" href="/ticket/adminTickets"
+               class="btn-primary">Show Tickets</a>
+            <a ng-if="profile.roles[0].name=='Customer'" href="/ticket/myTickets"
+               class="btn-primary">Show Tickets</a>
+        </div>
+    </div>
+
+
     <div class="container" style="margin-top: 100px">
         <div class="row">
             <div class="col-md-4 intro-pic wow slideInLeft">
