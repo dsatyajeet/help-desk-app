@@ -88,7 +88,7 @@
 
     <div class="col-md-offset-6 col-md-6" style="margin-top: 80px">
         <div class="head-btn wow fadeInLeft">
-            <a href="/ticket"
+            <a ng-if="profile.roles[0].name=='Customer'" href="/ticket"
                class="btn-primary">Add New Ticket</a>
             <a ng-if="profile.roles[0].name=='Admin'" href="/ticket/adminTickets"
                class="btn-primary">Show Tickets</a>

@@ -39,6 +39,7 @@ helpDeskApp.controller('ticketsController', ['$sessionStorage', '$scope', '$http
             .success(function (data) {
                 $scope.tickets = ticketService.getAll($sessionStorage.UserName)
                     .success(function (data) {
+                        addNotification("Ticket Deleted successfully ", "information");
                         $scope.tickets = data;
                     });
             });
@@ -78,11 +79,6 @@ helpDeskApp.controller('userController', ['$sessionStorage', '$scope', '$http', 
         $window.location.href = '/';
 
     };
-
-    $scope.profile = userService.getProfile($sessionStorage.UserName)
-        .success(function (data) {
-            $scope.profile = data;
-        });
 
     $scope.register = function (userEntry) {
         userEntry.roles='Customer';
