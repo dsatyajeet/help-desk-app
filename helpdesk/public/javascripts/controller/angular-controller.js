@@ -8,9 +8,10 @@ var helpDeskApp = angular.module('helpDeskApp', ['ngRoute', 'ngCookies', 'ngStor
         //$http.defaults.headers.common.Authorization = 'Bearer TKfNLXwKt2yYKgaNYLxVf7I1krLM0EddSIlyKDRAGLTMwWnmoz';
         $http.defaults.headers.common.Authorization = "Bearer " + $sessionStorage.AuthHeader;
         var absUrl = $location.absUrl();
-
-        if(!$sessionStorage.AuthHeader && absUrl!="http://localhost:8080/"){
-            $window.location.href = '/';
+        console.log($sessionStorage.AuthHeader);
+        if(!$sessionStorage.AuthHeader){
+            console.log(absUrl);
+            //$window.location.href = '/';
         }
     });
 
@@ -104,6 +105,9 @@ helpDeskApp.controller('userController', ['$sessionStorage', '$scope', '$http', 
                 addNotification("User Added successfully : UserId is " + data._id, "information");
                 $scope.userEntry = {};
                 toggle('div#login', 'div#registration');
+            }).error(function(data){
+                addNotification("Error in registering user : " + data.errmsg, "error");
+
             });
     }, $scope.login = function (loginEntry) {
         loginEntry.grant_type = "password";

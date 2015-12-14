@@ -60,8 +60,10 @@ router.route('/add').post(oauth2.isAuthenticated, function (req, res, next) {
                 });
 
                 user.save(function (err, user) {
-                    if (err)
-                        return res.send(err);
+                    if (err){
+                        res.status(err.status || 500);
+                        return res.json(err);
+                    }
                     return res.json(user);
 
                 });
