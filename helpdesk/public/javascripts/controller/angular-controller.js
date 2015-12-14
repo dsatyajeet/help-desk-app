@@ -8,10 +8,10 @@ var helpDeskApp = angular.module('helpDeskApp', ['ngRoute', 'ngCookies', 'ngStor
         //$http.defaults.headers.common.Authorization = 'Bearer TKfNLXwKt2yYKgaNYLxVf7I1krLM0EddSIlyKDRAGLTMwWnmoz';
         $http.defaults.headers.common.Authorization = "Bearer " + $sessionStorage.AuthHeader;
         var absUrl = $location.absUrl();
-        console.log($sessionStorage.AuthHeader);
-        if(!$sessionStorage.AuthHeader){
-            console.log(absUrl);
-            //$window.location.href = '/';
+        if(!$sessionStorage.AbsUrl)
+            $sessionStorage.AbsUrl=location.protocol+"//"+location.host+"/";
+        if(!$sessionStorage.AuthHeader && absUrl!=$sessionStorage.AbsUrl){
+            $window.location.href = '/';
         }
     });
 
@@ -93,6 +93,7 @@ helpDeskApp.controller('userController', ['$sessionStorage', '$scope', '$http', 
     $scope.logout = function () {
         $sessionStorage.AuthHeader = '';
         $sessionStorage.UserName = '';
+        $sessionStorage.AbsUrl='';
         $sessionStorage.$reset();
         $window.location.href = '/';
 
@@ -130,6 +131,7 @@ helpDeskApp.controller('userController', ['$sessionStorage', '$scope', '$http', 
         }).error(function () {
             $sessionStorage.AuthHeader = '';
             $sessionStorage.UserName = '';
+            $sessionStorage.AbsUrl='';
             addNotification("User Entered Credential are incorrect!", "error");
             console.log("logged in not successfully");
         });
@@ -149,6 +151,7 @@ helpDeskApp.controller('profileController', ['$sessionStorage', '$scope', '$http
     $scope.logout = function () {
         $sessionStorage.AuthHeader = '';
         $sessionStorage.UserName = '';
+        $sessionStorage.AbsUrl='';
         $sessionStorage.$reset();
         $window.location.href = '/';
 
