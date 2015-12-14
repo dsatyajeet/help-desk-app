@@ -4,9 +4,14 @@
 
 
 var helpDeskApp = angular.module('helpDeskApp', ['ngRoute', 'ngCookies', 'ngStorage', 'helpDeskApp.services'])
-    .run(function ($rootScope, $location, $cookieStore, $http, $sessionStorage) {
+    .run(function ($rootScope, $location, $cookieStore, $http, $sessionStorage,$window) {
         //$http.defaults.headers.common.Authorization = 'Bearer TKfNLXwKt2yYKgaNYLxVf7I1krLM0EddSIlyKDRAGLTMwWnmoz';
         $http.defaults.headers.common.Authorization = "Bearer " + $sessionStorage.AuthHeader;
+        var absUrl = $location.absUrl();
+
+        if(!$sessionStorage.AuthHeader && absUrl!="http://localhost:8080/"){
+            $window.location.href = '/';
+        }
     });
 
 helpDeskApp.filter('dateFormat', function($filter)
