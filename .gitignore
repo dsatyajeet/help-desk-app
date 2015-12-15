@@ -93,3 +93,10 @@ node_modules
 
 helpdesk/.idea/vcs.xml
 helpdesk/.idea/workspace.xml
+
+npm-debug.log
+node_modules
+logs/*.log
+public/.sass-cache
+.notes
+.idea/
