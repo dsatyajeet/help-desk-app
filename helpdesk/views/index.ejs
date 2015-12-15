@@ -56,12 +56,12 @@
           href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic"/>
 </head>
 
-<body data-spy="scroll" data-target="#navbar-scroll" style="color: #B9611F" ng-app="helpDeskApp">
 
+<body data-spy="scroll" data-target="#navbar-scroll" style="color: #B9611F" ng-app="helpDeskApp">
 <div id="home" class="container-fluid">
     <div class="fullscreen landing parallax" style="background-image:url('images/backgd.jpg');" data-img-width="2300"
          data-img-height="1500" data-diff="100">
-        <div style="height: 750px; " class="row">
+        <div style="height: 680px; " class="row">
             <div class="overlay">
                 <div>
                     <div class="container">
@@ -96,12 +96,13 @@
                                    class="btn-default">Register</a>
                             </div>
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-md-5" style="margin-top: 50px">
                             <form role="form" id="registerForm" name="registerForm" novalidate>
                                 <div id="registration" class="form-group hide-tab">
                                     <div class="col-sm-offset-3 col-sm-7">
                                         <label for="firstName">First name</label>
-                                        <input type="text" ng-model="userEntry.firstName" name="firstName" class="form-control input-sm"
+                                        <input type="text" ng-model="userEntry.firstName" name="firstName"
+                                               class="form-control input-sm"
                                                name="firstName" id="firstName"
                                                placeholder="First Name" required>
                                         <span style="color:red"
@@ -167,47 +168,57 @@
                                     </div>
                                     <div class="col-sm-offset-3 col-sm-7">
                                         <div class="col-sm-offset-3 col-sm-7">
-                                            <button ng-disabled="registerForm.$invalid" type="submit" ng-click="register(userEntry);" class="btn-primary"
-                                                   value="Register">Register</button>
+                                            <button ng-disabled="registerForm.$invalid" type="submit"
+                                                    ng-click="register(userEntry);" class="btn-primary"
+                                                    value="Register">Register
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
                             </form>
                             <form role="form" name="loginForm" id="loginForm" novalidate>
-                            <div id="login" class="form-group hide-tab">
-                                <div class="col-sm-offset-3 col-sm-7">
-                                    <label for="userName">User Name</label>
-                                    <input type="text" class="form-control input-sm" ng-model="loginEntry.username"
-                                           name="username" id="username"
-                                           placeholder="User Name" required>
+                                <div id="login" class="form-group hide-tab">
+                                    <div class="col-sm-offset-3 col-sm-7">
+                                        <label for="userName">User Name</label>
+                                        <input type="text" class="form-control input-sm" ng-model="loginEntry.username"
+                                               name="username" id="username"
+                                               placeholder="User Name" required>
                                         <span style="color:red"
                                               ng-show="loginForm.username.$invalid && !loginForm.username.$pristine">
 				                            <span ng-show="loginForm.username.$invalid && !loginForm.username.$pristine">UserName is required.</span>
 		                                </span>
 
-                                </div>
-                                <div class="col-sm-offset-3 col-sm-7">
-                                    <label for="password">Password</label>
-                                    <input type="password" ng-model="loginEntry.password" class="form-control input-sm"
-                                           name="password"
-                                           id="password"
-                                           placeholder="Password" required>
+                                    </div>
+                                    <div class="col-sm-offset-3 col-sm-7">
+                                        <label for="password">Password</label>
+                                        <input type="password" ng-model="loginEntry.password"
+                                               class="form-control input-sm"
+                                               name="password"
+                                               id="password"
+                                               placeholder="Password" required>
                                         <span style="color:red"
                                               ng-show="loginForm.password.$invalid && !loginForm.password.$pristine">
 				                            <span ng-show="loginForm.password.$invalid && !loginForm.password.$pristine">Password is required.</span>
 		                                </span>
 
-                                </div>
-
-                                <div class="col-sm-offset-3 col-sm-7">
-                                    <div class="col-sm-offset-3 col-sm-7">
-                                        <input type="hidden" name="grant_type" ng-model="loginEntry.grant_type"
-                                               ng-value="password"/>
-                                        <button ng-disabled="loginForm.$invalid" type="submit" ng-click="login(loginEntry);" class="btn-primary"
-                                               value="Login">Login</button>
+                                    </div>
+                                    <div class=" row col-sm-offset-3 col-sm-7">
+                                        <div class="col-sm-offset-3 col-sm-7">
+                                            <input type="hidden" name="grant_type" ng-model="loginEntry.grant_type"
+                                                   ng-value="password"/>
+                                            <button ng-disabled="loginForm.$invalid" type="submit"
+                                                    ng-click="login(loginEntry);" class="btn-primary"
+                                                    value="Login">Login
+                                            </button>
+                                        </div>
+                                        <div>
+                                            <label style="color: blanchedalmond; font-family: FontAwesome;"><i> Login using...</i></label><br>
+                                            <a href="/" class="fa fa-google-plus-square fa-5x"></a>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="/" class="fa fa-facebook-square fa-5x"></a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             </form>
                         </div>
                     </div>
@@ -216,27 +227,6 @@
         </div>
     </div>
 </div>
-
-<footer id="footer">
-    <div class="container">
-        <div class="col-sm-4 col-sm-offset-4">
-            <!-- /.social links -->
-            <div class="social text-center">
-                <ul>
-                    <li><a class="wow fadeInUp" href="https://twitter.com/"><i class="fa fa-twitter"></i></a></li>
-                    <li><a class="wow fadeInUp" href="https://www.facebook.com/" data-wow-delay="0.2s"><i
-                                    class="fa fa-facebook"></i></a></li>
-                    <li><a class="wow fadeInUp" href="https://plus.google.com/" data-wow-delay="0.4s"><i
-                                    class="fa fa-google-plus"></i></a></li>
-                    <li><a class="wow fadeInUp" href="https://instagram.com/" data-wow-delay="0.6s"><i
-                                    class="fa fa-instagram"></i></a></li>
-                </ul>
-            </div>
-            <div class="text-center wow fadeInUp" style="font-size: 14px;">Copyright <a
-                        href="http://www.mobiquityinc.com">Mobiquity Softtech Pvt Ltd.</a></div>
-            <a href="#" class="scrollToTop"><i class="pe-7s-up-arrow pe-va"></i></a>
-        </div>
-    </div>
-</footer>
+<% include footer %>
 </body>
 </html>
