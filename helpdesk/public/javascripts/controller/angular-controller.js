@@ -82,8 +82,9 @@ helpDeskApp.controller('adminTicketsController', ['$sessionStorage', '$scope', '
                     });
             });
     };
-
-
+    $scope.viewTicket = function(ticket){
+      $scope.ticket = ticket;
+    };
 
 }]);
 
