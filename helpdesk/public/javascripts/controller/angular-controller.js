@@ -9,9 +9,9 @@ var helpDeskApp = angular.module('helpDeskApp', ['ngRoute', 'ngCookies', 'ngStor
         $http.defaults.headers.common.Authorization = "Bearer " + $sessionStorage.AuthHeader;
         var absUrl = $location.absUrl();
         if(!$sessionStorage.AbsUrl)
-            $sessionStorage.AbsUrl=location.protocol+"//"+location.host+"/";
+            //$sessionStorage.AbsUrl=location.protocol+"//"+location.host+"/";
         if(!$sessionStorage.AuthHeader && absUrl!=$sessionStorage.AbsUrl){
-            $window.location.href = '/';
+            //$window.location.href = '/';
         }
     });
 
@@ -110,7 +110,15 @@ helpDeskApp.controller('userController', ['$sessionStorage', '$scope', '$http', 
                 addNotification("Error in registering user : " + data.errmsg, "error");
 
             });
-    }, $scope.login = function (loginEntry) {
+    }, $scope.loginWithGoogle = function(){
+        $window.location.href = "https://accounts.google.com/o/oauth2/auth?"
+        +"scope=email&"
+        +"redirect_uri=http://localhost:8080/google/signin&"
+        +"response_type=code&"
+        +"client_id=99085908669-lpoosrvb48f3236s52fj8uki5jkpp7qe.apps.googleusercontent.com&"
+        +"approval_prompt=force";
+
+    },$scope.login = function (loginEntry) {
         loginEntry.grant_type = "password";
 
         userService.login(loginEntry).success(function (data) {
@@ -167,5 +175,25 @@ helpDeskApp.controller('profileController', ['$sessionStorage', '$scope', '$http
                 addNotification("User Update successfully : UserId is " + data._id, "information");
             });
     }
+
+}]);
+
+helpDeskApp.controller('dummyController', ['$sessionStorage','$scope', '$http', '$window', function ($sessionStorage,$scope, $http, $window) {
+
+        $scope.setData = function(token,email,thirdpartylogin,roles){
+
+        $sessionStorage.AuthHeader=token;
+        $sessionStorage.UserName=email;
+        $sessionStorage.thirdpartyLogin=thirdpartylogin;
+
+        if (roles === 'Admin') {
+
+            $window.location.href = '/ticket/adminTickets';
+        } else {
+            $window.location.href = '/ticket/myTickets';
+        }
+        $window.location.href = '/ticket/myTickets';
+    };
+
 
 }]);
